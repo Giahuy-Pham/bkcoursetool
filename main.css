@@ -1,0 +1,210 @@
+a {
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Abril Fatface';
+  font-size: 48px;
+  color: #14213d;
+}
+
+h2 {
+  width: 50%;
+  margin: 40px auto;
+  text-align: right;
+  font-family: 'Dancing Script';
+  padding: 0 200px;
+  font-size: 32px;
+  color: #14213d;
+}
+
+h3 {
+  text-align: center;
+  font-size: 24px;
+  color: #14213d;
+}
+
+.hd {
+  text-align: left;
+  color: #232c3d;
+}
+ 
+ul {
+  padding: 0 0 0 20px;
+}
+
+body {
+  background: url('https://scontent.fsgn5-12.fna.fbcdn.net/v/t1.6435-9/75642417_154241185939667_3263669966611677184_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=e3f864&_nc_ohc=TgRehf45hkcAX8C6Di6&_nc_ht=scontent.fsgn5-12.fna&oh=00_AfAWYUtSIjMeVcQXY35zM41o5L0-8U6SD_AALn4sNm0Lfw&oe=64EF397E');
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Oswald';
+  color: #fff;
+}
+
+.wrapper {
+  width: 400px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 10px 40px 0px rgba(12, 106, 170, 0.5);
+}
+
+.wrapper textarea {
+  padding: 10px;
+  width: 300px;
+  margin: 10px auto;
+  display: block;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  background: none;
+  color: #232c3d;
+}
+
+.controls, .finish {
+  padding: 0 20px;
+  margin: 20px auto;
+  display: block;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+#add_class {
+  padding: 10px;
+  margin: 20px auto;
+  width: 100px;
+  display: inline-block;
+  border-radius: 5px;
+  background: green;
+  background-image: linear-gradient(rgb(0 0 0/50%) 0 0);
+  background-blend-mode: lighten;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+#del_class {
+  padding: 10px;
+  margin: 20px auto;
+  width: 100px;
+  border-radius: 5px;
+  background: red;
+  background-image: linear-gradient(rgb(0 0 0/50%) 0 0);
+  background-blend-mode: lighten;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  float: right;
+}
+
+#submit {
+  padding: 10px;
+  margin: 20px auto;
+  width: 150px;
+  display: block;
+  border-radius: 5px;
+  border: none;
+  background: blue;
+  background-image: linear-gradient(rgb(0 0 0/50%) 0 0);
+  background-blend-mode: lighten;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+#add_class:hover, #del_class:hover, #submit:hover {
+  background-blend-mode: darken;
+}
+
+.cuc, #but {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mon {
+  /* vertical-align: top; */
+  margin: 10px 5px;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: #232c3d;
+}
+
+.mon tr > td {
+  background-color: #f0f5ff;
+  border-bottom: 2px solid lightgray;
+}
+
+.mon td {
+  width: 55px;
+  font-family: 'CMUTypewriterTextRegular';
+  padding: 5px;
+  text-align: center;
+}
+.mon td:hover, .mon td:active {
+  filter: brightness(90%);
+  z-index: 999;
+}
+.tenmon:hover, .tenmon:active {
+  filter: brightness(90%);
+  z-index: 999;
+}
+.mon tr:first-child > td {
+  font-size: 1rem;
+  height: 40px;
+  background-color: lightblue;
+  border: none;
+  font-weight: bold;
+}
+
+table tr:first-child td:first-child {
+  border-top-left-radius: 10px;
+}
+
+table tr:first-child td:last-child {
+  border-top-right-radius: 10px;
+}
+
+.haspopup {
+  position: relative;
+}
+
+.haspopup:active .popup {
+  transform: translate(-50%,10%) scale(1);
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%,10%) scale(0);
+  transition: transform 0.1s ease-in;
+  display: inline;
+  border-radius: 5px;
+  background: whitesmoke;
+  min-width: 100%;
+  /* width: max-content; */
+  padding: 1rem;
+  border: 1px solid #232c3d;
+}
+
+.tenmon {
+  padding: 10px;
+  margin: 20px 10px;
+  width: max-content;
+  display: block;
+  border-radius: 5px;
+  border: none;
+  background: #f0f5ff;
+  background-image: linear-gradient(rgb(0 0 0/50%) 0 0);
+  background-blend-mode: lighten;
+  text-align: center;
+  color: #232c3d;
+  font-weight: bold;
+}
+
+.tenmon.active {
+  background: lightblue;
+}
