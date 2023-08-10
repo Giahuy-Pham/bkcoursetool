@@ -217,7 +217,7 @@ submit.onclick = function(){
     }
     document.getElementById("but").appendChild(button);
   }
-  window.addEventListener('click', ({ target }) => {
+  document.addEventListener('click', ({ target }) => {
     var popup = target.closest('.haspopup');
     var clickedOnClosedPopup = popup && !popup.classList.contains('show');
     document.querySelectorAll('.haspopup').forEach(p => p.classList.remove('show'));
