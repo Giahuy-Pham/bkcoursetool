@@ -98,8 +98,8 @@ function tao(kt) {
       if (isBt&&!sl[1][+p2][+d2].includes(l1+l2)) {sl[1][+p2][+d2].push(l1+"-"+l2);}
       while(l1.length<4) l1=l1+' ';
       while(isBt&&l2.length<4) l2=l2+' ';
-      if (!nd[0][+p1][+d1].includes(l1)) {nd[0][+p1][+d1].push(l1+" "+r1+" "+w1);}
-      if (isBt&&!nd[1][+p2][+d2].includes(l1+l2)) {nd[1][+p2][+d2].push(l1+" "+r1+" "+w1+"\n"+l2+" "+r2+" "+w2);}
+      if (!nd[0][+p1][+d1].includes(l1+" "+r1+" "+w1)) {nd[0][+p1][+d1].push(l1+" "+r1+" "+w1);}
+      if (isBt&&!nd[1][+p2][+d2].includes(l1+" "+r1+" "+w1+"\n"+l2+" "+r2+" "+w2)) {nd[1][+p2][+d2].push(l1+" "+r1+" "+w1+"\n"+l2+" "+r2+" "+w2);}
       //document.write(l1+" "+l2+" "+p2+"-"+d2+"|"+"<br>");
       if (tmp[0]==ss) {
         tkb[+p1][+d1].push(da[it-1].slice(0,6)+"(Lec)"); 
@@ -211,10 +211,23 @@ submit.onclick = function(){
   for(let i=0; i<li.length;i++) {
     var button=document.createElement('button');
     button.className="tenmon";
-    button.innerText=li[i];
-    button.onclick= function() { tao(i); }
+    button.innerText=li[i]; 
+    button.onclick= function() { 
+      tao(i);
+    }
     document.getElementById("but").appendChild(button);
   }
+  window.addEventListener('click', ({ target }) => {
+    var popup = target.closest('.haspopup');
+    var clickedOnClosedPopup = popup && !popup.classList.contains('show');
+    document.querySelectorAll('.haspopup').forEach(p => p.classList.remove('show'));
+    document.getElementById('cover').style.visibility='hidden';  
+  
+    if (clickedOnClosedPopup) {
+      document.getElementById('cover').style.visibility='visible';
+      popup.classList.add('show');
+    }
+  });
   let list = document.querySelectorAll(".tenmon");
   function activeLink(){
     list.forEach((item) => item.classList.remove('active'));
