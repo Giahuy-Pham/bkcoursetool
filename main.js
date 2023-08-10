@@ -62,7 +62,12 @@ function tao(kt) {
     }
     for(let i=da.length-1; i>0; i--) {
       var tmp=da[i].split('	');
-      if (tmp[0].search(da[it-1])!=-1) {ss=da[i+2].split('	')[0]; break;}
+      if (tmp[0].search(da[it-1])!=-1) 
+      {
+        let j=i+1;
+        while (da[j].split(' ')[0]!='Nhóm') j++;
+        ss=da[j+1].split('	')[0]; break;
+      }
     }
     li.push(da[it-1]);
     isBt=1;
