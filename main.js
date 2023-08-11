@@ -104,7 +104,7 @@ function makecuc(id) {
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
   let ks = 2, ke = 2;
-  if (id >= 0) { ks = 0; kd = isBt[id]; } else id = 0;
+  if (id >= 0) { ks = 0; ke = isBt[id]; } else id = 0;
   for (k = ks; k <= ke; k++) {
     var tbl = document.createElement('table');
     tbl.className = 'mon';
