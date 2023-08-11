@@ -32,7 +32,7 @@ var data1, data = [], da = [], tex = "", sl = [], nd = [], li = [], id, isBt = [
 var thu = ['x', 'x', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function tao() {
-  for (u = 0; u < data.length; u++) {
+  for (let u = 0; u < data.length; u++) {
     da = data[u].split("\n");
     var it, ss;
     for (it = 0; it < da.length; it++) {
@@ -103,8 +103,8 @@ function makecuc(id) {
   var newdiv = document.createElement("div");
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
-  let ks = 0, ke = isBt[id];
-  if (!id) ks = ke = 2;
+  let ks = 2, ke = 2;
+  if (id >= 0) { ks = 0; kd = isBt[id]; } else id = 0;
   for (k = ks; k <= ke; k++) {
     var tbl = document.createElement('table');
     tbl.className = 'mon';
@@ -169,7 +169,7 @@ submit.onclick = function () {
     var button = document.createElement('button');
     button.className = "tenmon";
     button.innerText = li[i];
-    button.onclick = function () { makecuc(i); }
+    button.onclick = function () { makecuc(i - 1); }
     document.getElementById("but").appendChild(button);
   }
   document.addEventListener('click', ({ target }) => {
