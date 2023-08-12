@@ -145,7 +145,6 @@ ul {
   border-radius: 10px 10px 0 0;
   overflow: hidden;
   color: black;
-  background: white;
 }
 
 .mon tr>td {
@@ -160,8 +159,12 @@ ul {
   background-color: white;
 }
 
+.mon tr {
+  background: white;
+}
+
 .mon tr:first-child {
-  background: powderblue !important;
+  background: powderblue;
 }
 
 .mon tr:first-child>td {
