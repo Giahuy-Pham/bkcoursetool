@@ -178,7 +178,7 @@ ul {
 }
 
 .haspopup {
-  background-color: aliceblue !important;
+  background-color: honeydew !important;
 }
 
 .haspopup.show:hover {
@@ -211,4 +211,11 @@ ul {
   height: 100%;
   top: 0;
   left: 0;
+}
+
+#note {
+  width: 95%;
+  margin: 5px auto;
+  text-align: left;
+  font-style: oblique;
 }
