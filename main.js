@@ -28,7 +28,7 @@ del_class.onclick = function () {
   }
 }
 
-var data1, data = [], da = [], tex = "", sl = [], nd = [], li = [], id, isBt = [];
+var data1, data = [], da = [], tex = "", lo = [], sl = [], nd = [], li = [], q, isBt = [];
 var thu = ['x', 'x', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function tao() {
@@ -56,18 +56,17 @@ function tao() {
       l1 = l[0];
       tmp1 = da[i + 2].split('	').join(' ').split(' ');
       d1 = tmp1[1]; if (d1 == 'nhật') d1 = '8';
-      let j = 2;
-      while (tmp1[j] == '-') j++;
-      p1 = tmp1[j];
+      let j1 = 2, j2 = 2;
+      while (tmp1[j1] == '-') j1++;
+      p1 = tmp1[j1];
       r1 = tmp1[tmp1.length - 4];
       w1 = tmp1[tmp1.length - 1]; w2 = w1;
       if (isBt[u]) {
         l2 = l[1];
         tmp2 = da[i + 3].split('	').join(' ').split(' ');
         d2 = tmp2[1]; if (d2 == 'nhật') d2 = '8';
-        j = 2;
-        while (tmp2[j] == '-') j++;
-        p2 = tmp2[j];
+        while (tmp2[j2] == '-') j2++;
+        p2 = tmp2[j2];
         r2 = tmp2[tmp2.length - 4];
         w2 = tmp2[tmp2.length - 1];
         if (w1 < w2) { [w1, w2] = [w2, w1];[d1, d2] = [d2, d1];[p1, p2] = [p2, p1];[r1, r2] = [r2, r1]; }
@@ -76,51 +75,66 @@ function tao() {
       if (r2 == 'HANGOUT_TUONGTAC') r2 = 'GGMEET';
       while (l1.length < 4) l1 = ' ' + l1;
       while (isBt[u] && l2.length < 4) l2 = l2 + ' ';
-      if (!sl[0][u][+p1][+d1].includes(l1)) {
-        sl[0][u][+p1][+d1].push(l1);
+      if (!lo[0][u][+p1][+d1].includes(l1)) {
+        lo[0][u][+p1][+d1].push(l1);
         nd[0][u][+p1][+d1].push(l1 + " " + r1 + " " + w1);
       }
-      if (isBt[u] && !sl[1][u][+p2][+d2].includes(l1 + l2)) {
-        sl[1][u][+p2][+d2].push(l1 + "-" + l2);
+      if (isBt[u] && !lo[1][u][+p2][+d2].includes(l1 + l2)) {
+        lo[1][u][+p2][+d2].push(l1 + "-" + l2);
         nd[1][u][+p2][+d2].push(l1 + " " + r1 + " " + w1 + "\n" + l2 + " " + r2 + " " + w2);
       }
       if (tmp[0] == ss) {
         var s = l1 + " " + r1 + " " + w1;
         if (isBt[u]) s += "\n" + l2 + " " + r2 + " " + w2;
-        sl[2][0][+p1][+d1].push(da[it - 1].slice(0, 6) + "(Lec)");
+        sl[2][0][+p1][+d1] = 0;
+        while (tmp1[j1] != '-') { j1++; sl[2][0][+p1][+d1]++; }
+        lo[2][0][+p1][+d1].push(da[it - 1].slice(0, 6) + "(Lec)");
         nd[2][0][+p1][+d1].push(s);
         if (isBt[u]) {
-          sl[2][0][+p2][+d2].push(da[it - 1].slice(0, 6) + "(Lab)");
+          lo[2][0][+p2][+d2].push(da[it - 1].slice(0, 6) + "(Lab)");
           nd[2][0][+p2][+d2].push(s);
+          sl[2][0][+p2][+d2] = 0;
+          while (tmp2[j2] != '-') { j2++; sl[2][0][+p2][+d2]++; }
         }
       }
     }
   }
 }
 
-function makecuc(id) {
+function makecuc(q) {
+  let id = q ? q - 1 : 0;
   document.querySelectorAll('.cuc').forEach(e => e.remove());
   var newdiv = document.createElement("div");
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
-  let ks = 2, ke = 2;
-  if (id >= 0) { ks = 0; ke = isBt[id]; } else id = 0;
+  var isSpan=[];
+  for (let i = 0; i <= 12; i++) {
+    isSpan[i]=[];
+    for (let j = 1; j <= 8; j++) {
+      isSpan[i][j]=0;
+    }
+  }
+  let ks = 0, ke = isBt[id];
+  if (!q) ks = ke = 2;
   for (k = ks; k <= ke; k++) {
     var tbl = document.createElement('table');
     tbl.className = 'mon';
     for (let i = 0; i <= 12; i++) {
       const tr = tbl.insertRow();
       for (let j = 1; j <= 8; j++) {
+        if (isSpan[i][j]) continue;
         const td = tr.insertCell();
         var celltext, celltextpop, tmp = '';
         if (!i && !(j - 1)) if (!k) tmp = 'Lec'; else tmp = 'Lab';
         if (!i && j - 1) tmp = thu[j];
         if (i && !(j - 1)) tmp = i;
-        if (i && j - 1) for (let z = 0; z < sl[k][id][i][j].length; z++) tmp += sl[k][id][i][j][z] + "\n";
+        if (i && j - 1) for (let z = 0; z < lo[k][id][i][j].length; z++) tmp += lo[k][id][i][j][z] + "\n"; 
         celltext = document.createTextNode(tmp);
         td.style = "white-space: pre-line;"
         td.appendChild(celltext);
         if (!nd[k][id][i][j].length) continue;
+        if (!q) td.rowSpan=sl[k][id][i][j];
+        for(let z=0;z<sl[k][id][i][j];z++) isSpan[i+z][j]=1;
         td.className = "haspopup";
         tmp = '';
         for (let z = 0; z < nd[k][id][i][j].length; z++) {
@@ -149,13 +163,13 @@ submit.onclick = function () {
   localStorage.setItem("bruh", tex);
   document.querySelectorAll('.wrapper').forEach(e => e.remove());
   for (let z = 0; z < 3; z++) {
-    sl[z] = []; nd[z] = [];
+    lo[z] = []; nd[z] = []; sl[z] = [];
     for (let k = 0; k <= data.length; k++) {
-      sl[z][k] = []; nd[z][k] = []; isBt.push(1);
+      lo[z][k] = []; nd[z][k] = []; sl[z][k] = []; isBt.push(1);
       for (let i = 0; i < 15; i++) {
-        sl[z][k][i] = []; nd[z][k][i] = [];
+        lo[z][k][i] = []; nd[z][k][i] = []; sl[z][k][i] = [];
         for (let j = 0; j < 10; j++) {
-          sl[z][k][i][j] = []; nd[z][k][i][j] = [];
+          lo[z][k][i][j] = []; nd[z][k][i][j] = []; sl[z][k][i][j] = [];
         }
       }
     }
@@ -169,7 +183,7 @@ submit.onclick = function () {
     var button = document.createElement('button');
     button.className = "tenmon";
     button.innerText = li[i];
-    button.onclick = function () { makecuc(i - 1); }
+    button.onclick = function () { makecuc(i); }
     document.getElementById("but").appendChild(button);
   }
   document.addEventListener('click', ({ target }) => {
