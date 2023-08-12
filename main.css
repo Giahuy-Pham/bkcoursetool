@@ -161,7 +161,7 @@ ul {
 }
 
 .mon tr:first-child {
-  background: powderblue;
+  background: powderblue !important;
 }
 
 .mon tr:first-child>td {
@@ -178,7 +178,7 @@ ul {
 }
 
 .haspopup {
-  background-color: honeydew !important;
+  background-color: ghostwhite !important;
 }
 
 .haspopup.show:hover {
