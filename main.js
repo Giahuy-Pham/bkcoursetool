@@ -107,11 +107,11 @@ function makecuc(q) {
   var newdiv = document.createElement("div");
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
-  var isSpan=[];
+  var isSpan = [];
   for (let i = 0; i <= 12; i++) {
-    isSpan[i]=[];
+    isSpan[i] = [];
     for (let j = 1; j <= 8; j++) {
-      isSpan[i][j]=0;
+      isSpan[i][j] = 0;
     }
   }
   let ks = 0, ke = isBt[id];
@@ -128,13 +128,13 @@ function makecuc(q) {
         if (!i && !(j - 1)) if (!k) tmp = 'Lec'; else tmp = 'Lab';
         if (!i && j - 1) tmp = thu[j];
         if (i && !(j - 1)) tmp = i;
-        if (i && j - 1) for (let z = 0; z < lo[k][id][i][j].length; z++) tmp += lo[k][id][i][j][z] + "\n"; 
+        if (i && j - 1) for (let z = 0; z < lo[k][id][i][j].length; z++) tmp += lo[k][id][i][j][z] + "\n";
         celltext = document.createTextNode(tmp);
         td.style = "white-space: pre-line;"
         td.appendChild(celltext);
         if (!nd[k][id][i][j].length) continue;
-        if (!q) td.rowSpan=sl[k][id][i][j];
-        for(let z=0;z<sl[k][id][i][j];z++) isSpan[i+z][j]=1;
+        if (!q) td.rowSpan = sl[k][id][i][j];
+        for (let z = 0; z < sl[k][id][i][j]; z++) isSpan[i + z][j] = 1;
         td.className = "haspopup";
         tmp = '';
         for (let z = 0; z < nd[k][id][i][j].length; z++) {
@@ -151,7 +151,6 @@ function makecuc(q) {
     newdiv.appendChild(tbl);
   }
 }
-
 
 submit.onclick = function () {
   data1 = lop.getElementsByTagName('textarea');
@@ -186,6 +185,11 @@ submit.onclick = function () {
     button.onclick = function () { makecuc(i); }
     document.getElementById("but").appendChild(button);
   }
+  newdiv = document.createElement("div");
+  newdiv.id = "note";
+  sche.appendChild(newdiv);
+  var x=document.createTextNode("*ICT = BKPT +5.");
+  newdiv.appendChild(x);
   document.addEventListener('click', ({ target }) => {
     var popup = target.closest('.haspopup');
     document.getElementById('cover').style.visibility = 'hidden';
