@@ -177,6 +177,10 @@ ul {
   filter: brightness(90%);
 }
 
+.haspopup {
+  background-color: aliceblue !important;
+}
+
 .haspopup.show:hover {
   filter: none;
 }
