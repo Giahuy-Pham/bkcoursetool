@@ -69,7 +69,7 @@ function tao() {
         p2 = tmp2[j2];
         r2 = tmp2[tmp2.length - 4];
         w2 = tmp2[tmp2.length - 1];
-        if (w1 < w2) { [w1, w2] = [w2, w1];[d1, d2] = [d2, d1];[p1, p2] = [p2, p1];[r1, r2] = [r2, r1]; }
+        if (w1 < w2) { [w1, w2] = [w2, w1];[d1, d2] = [d2, d1];[p1, p2] = [p2, p1];[r1, r2] = [r2, r1];[tmp1, tmp2] = [tmp2, tmp1];[j1, j2] = [j2, j1]; }
       }
       if (r1 == 'HANGOUT_TUONGTAC') r1 = 'GGMEET';
       if (r2 == 'HANGOUT_TUONGTAC') r2 = 'GGMEET';
@@ -108,7 +108,7 @@ function makecuc(q) {
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
   var isSpan = [];
-  for (let i = 0; i <= 12; i++) {
+  for (let i = 0; i <= 17; i++) {
     isSpan[i] = [];
     for (let j = 1; j <= 8; j++) {
       isSpan[i][j] = 0;
@@ -119,7 +119,7 @@ function makecuc(q) {
   for (k = ks; k <= ke; k++) {
     var tbl = document.createElement('table');
     tbl.className = 'mon';
-    for (let i = 0; i <= 12; i++) {
+    for (let i = 0; i <= 17; i++) {
       const tr = tbl.insertRow();
       for (let j = 1; j <= 8; j++) {
         if (isSpan[i][j]) continue;
@@ -165,7 +165,7 @@ submit.onclick = function () {
     lo[z] = []; nd[z] = []; sl[z] = [];
     for (let k = 0; k <= data.length; k++) {
       lo[z][k] = []; nd[z][k] = []; sl[z][k] = []; isBt.push(1);
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         lo[z][k][i] = []; nd[z][k][i] = []; sl[z][k][i] = [];
         for (let j = 0; j < 10; j++) {
           lo[z][k][i][j] = []; nd[z][k][i][j] = []; sl[z][k][i][j] = [];
@@ -188,7 +188,7 @@ submit.onclick = function () {
   newdiv = document.createElement("div");
   newdiv.id = "note";
   sche.appendChild(newdiv);
-  var x=document.createTextNode("*ICT = BKPT +5.");
+  var x = document.createTextNode("*ICT = BKPT +5.");
   newdiv.appendChild(x);
   document.addEventListener('click', ({ target }) => {
     var popup = target.closest('.haspopup');
