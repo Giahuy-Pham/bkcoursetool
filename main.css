@@ -43,6 +43,10 @@ a {
   color: black;
 }
 
+i {
+  -webkit-text-stroke-width: 0.015rem;
+}
+
 ul {
   padding: 0 0 0 20px;
 }
@@ -191,6 +195,7 @@ ul {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0);
+  transition: 0.1s ease-in;
   background: white;
   border-radius: 5px;
   width: max-content;
