@@ -4,7 +4,7 @@
 }
 
 body {
-  background: url('https://scontent.fsgn5-12.fna.fbcdn.net/v/t1.6435-9/75642417_154241185939667_3263669966611677184_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=e3f864&_nc_ohc=TgRehf45hkcAX8C6Di6&_nc_ht=scontent.fsgn5-12.fna&oh=00_AfAWYUtSIjMeVcQXY35zM41o5L0-8U6SD_AALn4sNm0Lfw&oe=64EF397E');
+  background: url('/bg.jpg');
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Oswald';
