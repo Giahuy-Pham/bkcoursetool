@@ -34,19 +34,20 @@ var thu = ['x', 'x', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 function tao() {
   for (let u = 0; u < data.length; u++) {
     da = data[u].split("\n");
-    var it, ss;
+    var it, ss = "";
     for (it = 0; it < da.length; it++) {
       var tmp = da[it].split(' ');
       if (tmp[0] == 'Nhóm') break;
     }
     for (let i = da.length - 1; i > 0; i--) {
       var tmp = da[i].split('	');
-      if (tmp[0].search(da[it - 1]) != -1) {
+      if (tmp[0].search(da[it - 1]) != -1 && tmp[0] != da[it - 1]) {
         let j = i + 1;
         while (da[j].split(' ')[0] != 'Nhóm') j++;
         ss = da[j + 1].split('	')[0]; break;
       }
     }
+    if (da[it + 3].split(' ')[0] == 'Chưa') continue;
     li.push(da[it - 1]);
     if (da[it + 3].split(' ')[0] != da[it + 4].split(' ')[0] && da[it + 4].split(' ')[0] != "Chủ") isBt[u] = 0;
     for (var i = it + 1; i < da.length; i += 3 + isBt[u]) {
@@ -55,7 +56,8 @@ function tao() {
       var l = tmp[0].split("_"), l1, l2 = "", d1, d2 = "", p1, p2 = "", r1, r2 = "", w1, w2 = "";
       l1 = l[0];
       tmp1 = da[i + 2].split('	').join(' ').split(' ');
-      d1 = tmp1[1]; if (d1 == 'nhật') d1 = '8';
+      d1 = tmp1[1]; 
+      if (d1 == 'nhật') d1 = '8';
       let j1 = 2, j2 = 2;
       while (tmp1[j1] == '-') j1++;
       p1 = tmp1[j1];
@@ -64,12 +66,13 @@ function tao() {
       if (isBt[u]) {
         l2 = l[1];
         tmp2 = da[i + 3].split('	').join(' ').split(' ');
-        d2 = tmp2[1]; if (d2 == 'nhật') d2 = '8';
+        d2 = tmp2[1]; 
+        if (d2 == 'nhật') d2 = '8';
         while (tmp2[j2] == '-') j2++;
         p2 = tmp2[j2];
         r2 = tmp2[tmp2.length - 4];
         w2 = tmp2[tmp2.length - 1];
-        if (w1 < w2) { [w1, w2] = [w2, w1];[d1, d2] = [d2, d1];[p1, p2] = [p2, p1];[r1, r2] = [r2, r1];[tmp1, tmp2] = [tmp2, tmp1];[j1, j2] = [j2, j1]; }
+        if (w1 < w2) { [w1, w2] = [w2, w1]; [d1, d2] = [d2, d1]; [p1, p2] = [p2, p1]; [r1, r2] = [r2, r1]; [tmp1, tmp2] = [tmp2, tmp1]; [j1, j2] = [j2, j1];}
       }
       if (r1 == 'HANGOUT_TUONGTAC') r1 = 'GGMEET';
       if (r2 == 'HANGOUT_TUONGTAC') r2 = 'GGMEET';
@@ -107,13 +110,6 @@ function makecuc(q) {
   var newdiv = document.createElement("div");
   newdiv.className = "cuc";
   sche.appendChild(newdiv);
-  var isSpan = [];
-  for (let i = 0; i <= 17; i++) {
-    isSpan[i] = [];
-    for (let j = 1; j <= 8; j++) {
-      isSpan[i][j] = 0;
-    }
-  }
   let ks = 0, ke = isBt[id];
   if (!q) ks = ke = 2;
   for (k = ks; k <= ke; k++) {
@@ -122,7 +118,6 @@ function makecuc(q) {
     for (let i = 0; i <= 17; i++) {
       const tr = tbl.insertRow();
       for (let j = 1; j <= 8; j++) {
-        if (isSpan[i][j]) continue;
         const td = tr.insertCell();
         var celltext, celltextpop, tmp = '';
         if (!i && !(j - 1)) if (!k) tmp = 'Lec'; else tmp = 'Lab';
@@ -133,8 +128,6 @@ function makecuc(q) {
         td.style = "white-space: pre-line;"
         td.appendChild(celltext);
         if (!nd[k][id][i][j].length) continue;
-        if (!q) td.rowSpan = sl[k][id][i][j];
-        for (let z = 0; z < sl[k][id][i][j]; z++) isSpan[i + z][j] = 1;
         td.className = "haspopup";
         tmp = '';
         for (let z = 0; z < nd[k][id][i][j].length; z++) {
