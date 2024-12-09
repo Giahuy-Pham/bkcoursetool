@@ -156,6 +156,11 @@ ul {
   border-bottom: 2px solid lavender;
 }
 
+.mon tr:nth-child(7)  > td,
+.mon tr:nth-child(13) > td {
+  border-bottom: 2px solid powderblue;
+}
+
 .mon td {
   width: 65px;
   font-family: 'CMUTypewriterTextRegular';
