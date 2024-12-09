@@ -41,13 +41,13 @@ function tao() {
     }
     for (let i = da.length - 1; i > 0; i--) {
       var tmp = da[i].split('	');
-      if (tmp[0].search(da[it - 1]) != -1 && tmp[0] != da[it - 1]) {
+      if (tmp[0].search(da[it - 1].split(' ')[0]) != -1 && tmp[0] != da[it - 1]) {
         let j = i + 1;
         while (da[j].split(' ')[0] != 'Nhóm') j++;
         ss = da[j + 1].split('	')[0]; break;
       }
     }
-    if (da[it + 3].split(' ')[0] == 'Chưa') continue;
+    if (da[it + 3].split(' ')[0] == "Chưa") continue;
     li.push(da[it - 1]);
     if (da[it + 3].split(' ')[0] != da[it + 4].split(' ')[0] && da[it + 4].split(' ')[0] != "Chủ") isBt[u] = 0;
     for (var i = it + 1; i < da.length; i += 3 + isBt[u]) {
