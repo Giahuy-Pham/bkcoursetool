@@ -1,9 +1,9 @@
 # About BKCourseTool
-- This tool helps **HCMUT** students to find _classes_ of a _course_ in a _semester_.
-- Multiple course supported.
+- This tool helps **HCMUT** students to find <ins>classes</ins> of a <ins>course</ins> in a <ins>semester</ins>.
+- Multiple courses supported.
 
 # Instruction
-- Showed when accessing website.
+- Appears when accessing website.
 
 # How It Works
 - It fetches classes data from course registration platform of **HCMUT** and displays them on tables which have weekday columns and period rows.
