@@ -4,7 +4,7 @@
 }
 
 body {
-  background: url('https://giahuy-pham.github.io/bkcoursetool/bg.jpg');
+  background: url('/bg.jpg');
   background-size: cover;
   background-attachment: fixed;
   font-family: 'Oswald';
@@ -80,13 +80,13 @@ ul {
   border-radius: 5px;
 }
 
-#add_class {
+#add_course {
   width: 100px;
   display: inline-block;
   background: limegreen;
 }
 
-#del_class {
+#del_course {
   width: 100px;
   float: right;
   background: red;
@@ -98,8 +98,8 @@ ul {
   background: blue;
 }
 
-#add_class,
-#del_class,
+#add_course,
+#del_course,
 #submit {
   padding: 10px;
   margin: 20px auto;
@@ -111,13 +111,13 @@ ul {
   background-blend-mode: lighten;
 }
 
-#add_class:hover,
-#del_class:hover,
+#add_course:hover,
+#del_course:hover,
 #submit:hover {
   background-blend-mode: darken;
 }
 
-.tenmon {
+.field_btn {
   padding: 10px;
   margin: 20px 10px;
   width: max-content;
@@ -131,12 +131,12 @@ ul {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
 }
 
-.tenmon.active {
+.field_btn.active {
   background: powderblue;
 }
 
 .cuc,
-#but {
+#field {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -174,11 +174,13 @@ ul {
   height: 40px;
   background-color: powderblue;
   border: none;
+  border-left: 2px solid powderblue;
+  border-right: 2px solid powderblue;
   font-weight: bold;
 }
 
 .mon td:hover,
-.tenmon:hover {
+.field_btn:hover {
   filter: brightness(90%);
 }
 
