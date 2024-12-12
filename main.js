@@ -27,6 +27,18 @@ add_course.onclick = function ()
   inp_data.appendChild(new_course);
 }
 
+// ======================================= Paste Button  ======================================= //
+document.getElementById('paste_btn').addEventListener('click', function() 
+{
+  add_course.click();
+  navigator.clipboard.readText().then(function(text) 
+  {
+    // Paste the clipboard text into the textarea
+    var cur_course = inp_data.getElementsByTagName('textarea');
+    if (cur_course.length > 0) cur_course[(cur_course.length) - 1].value = text;
+  })
+});
+
 // ===================================== Del Course Button ===================================== //
 del_course.onclick = function () 
 {
@@ -73,7 +85,8 @@ function data_fetch()
     field_list.push(data[it - 1]);
 
     // check if course has Lab, default is 1
-    if (data[it + 3].split(' ')[0] != data[it + 4].split(' ')[0] && data[it + 4].split(' ')[0] != "Chủ") has_lab[u] = 0;
+    if (data[it + 3].split(' ')[0] != data[it + 4].split(' ')[0] && data[it + 4].split(' ')[0] != "Chủ") 
+      has_lab[u] = 0;
 
     // get all course classes
     for (var i = it + 1; i < data.length; i += 3 + has_lab[u]) 
@@ -156,10 +169,10 @@ function create_table(q) {
   {
     var tbl = document.createElement('table');
     tbl.className = 'mon';
-    for (let i = 0; i <= 17; i++) 
+    for (let i = 0; i <= 17; i++) // rows
     {
       const tr = tbl.insertRow();
-      for (let j = 1; j <= 8; j++) 
+      for (let j = 1; j <= 8; j++) // columns 
       {
         const td = tr.insertCell();
         var celltext, celltextpop, tmp = '';
@@ -173,7 +186,8 @@ function create_table(q) {
         if (!class_info[k][id][i][j].length) continue;
         td.className = "haspopup";
         tmp = '';
-        for (let z = 0; z < class_info[k][id][i][j].length; z++) {
+        for (let z = 0; z < class_info[k][id][i][j].length; z++) 
+        {
           if (z) tmp += "\n";
           tmp += class_info[k][id][i][j][z] + "\n";
         }
