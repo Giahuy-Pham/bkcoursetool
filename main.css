@@ -74,21 +74,23 @@ ul {
 
 .controls,
 .finish {
-  padding: 0 20px;
   margin: 20px auto;
-  display: block;
-  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #add_course {
   width: 100px;
-  display: inline-block;
   background: limegreen;
+}
+
+#paste_btn {
+  width: 50px;
+  background: gold;
 }
 
 #del_course {
   width: 100px;
-  float: right;
   background: red;
 }
 
@@ -99,6 +101,7 @@ ul {
 }
 
 #add_course,
+#paste_btn,
 #del_course,
 #submit {
   padding: 10px;
@@ -112,6 +115,7 @@ ul {
 }
 
 #add_course:hover,
+#paste_btn:hover,
 #del_course:hover,
 #submit:hover {
   background-blend-mode: darken;
