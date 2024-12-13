@@ -139,14 +139,14 @@ ul {
   background: powderblue;
 }
 
-.cuc,
+.tbl_field,
 #field {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.mon {
+.data_tbl {
   margin: 10px 5px;
   font-size: 0.8rem;
   border-spacing: 0px;
@@ -156,16 +156,16 @@ ul {
   background: white;
 }
 
-.mon tr>td {
+.data_tbl tr > td {
   border-bottom: 2px solid lavender;
 }
 
-.mon tr:nth-child(7)  > td,
-.mon tr:nth-child(13) > td {
+.data_tbl tr:nth-child(7)  > td,
+.data_tbl tr:nth-child(13) > td {
   border-bottom: 2px solid powderblue;
 }
 
-.mon td {
+.data_tbl td {
   width: 65px;
   font-family: 'CMUTypewriterTextRegular';
   padding: 5px;
@@ -173,7 +173,7 @@ ul {
   background-color: white;
 }
 
-.mon tr:first-child>td {
+.data_tbl tr:first-child > td {
   font-size: 1rem;
   height: 40px;
   background-color: powderblue;
@@ -181,7 +181,7 @@ ul {
   font-weight: bold;
 }
 
-.mon td:hover,
+.data_tbl td:hover,
 .field_btn:hover {
   filter: brightness(90%);
 }
