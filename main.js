@@ -46,8 +46,8 @@ del_course.onclick = function ()
   if (cur_course.length > 0) inp_data.removeChild(cur_course[(cur_course.length) - 1]);
 }
 
-var full_data = [], data = [], class_code = [], class_info = [], field_list = [], q, has_lab = [];
-var weekdays = ['x', 'x', 'Mon', 'Tue', 'Wed', 'Thu ', 'Fri', 'Sat', 'Sun'];
+// ======================================== Fetch Data  ======================================== //
+var full_data = [], data = [], class_code = [], class_info = [], field_list = [], has_lab = [];
 
 function data_fetch() 
 {
@@ -55,10 +55,10 @@ function data_fetch()
   field_list.push("Schedule");
 
   // fetch through courses
-  for (let u = 0; u < full_data.length; u++) 
+  for (let u = 1; u <= full_data.length; u++) // course id starts at 1, let sche is 0
   {
     // course fetched to lines
-    data = full_data[u].split("\n");
+    data = full_data[u - 1].split("\n"); // full_data index starts at 0
 
     // find course code and course class in schedule
     var it, sche_class = "";
@@ -81,94 +81,100 @@ function data_fetch()
     // unknown schedule condition
     if (data[it + 3].split(' ')[0] == "Chưa") continue; // 'Chưa biết'
     
-    // store course to field
+    // store course code to field
     field_list.push(data[it - 1]);
 
-    // check if course has Lab, default is 1
-    if (data[it + 3].split(' ')[0] != data[it + 4].split(' ')[0] && data[it + 4].split(' ')[0] != "Chủ") 
-      has_lab[u] = 0;
+    // check if course has Lab
+    if (data[it + 4].split(' ').length > 1) has_lab[u] = 1;
 
     // get all course classes
     for (var i = it + 1; i < data.length; i += 3 + has_lab[u]) 
     {
-      var tmp = data[i].split('	'), tmp1, tmp2;
+      var tmp = data[i].split('	');
 
       // end when fetched all class
       if (tmp[0] == 'Phiếu đăng ký') break;
 
-      // get class code and info
-      var l = tmp[0].split("_"), l1, l2 = "", d1, d2 = "", p1, p2 = "", r1, r2 = "", w1, w2 = "";
-      l1 = l[0];
+      // get info
+      var tmp1, tmp2, l1, l2 = "", d1, d2 = "", p1, p2 = "", r1, r2 = "", w1, w2 = "", j1 = 2, j2 = 2;
       tmp1 = data[i + 2].split('	').join(' ').split(' ');
-      d1 = tmp1[1]; 
-      if (d1 == 'nhật') d1 = '8';
-      let j1 = 2, j2 = 2;
+      l1 = tmp[0].split("_")[0];                  // class code of lec
+      d1 = (tmp1[1] == 'nhật') ? '8' : tmp1[1];   // weekday of lec
       while (tmp1[j1] == '-') j1++;
-      p1 = tmp1[j1];
-      r1 = tmp1[tmp1.length - 4];
-      w1 = tmp1[tmp1.length - 1]; w2 = w1;
+      p1 = tmp1[j1];                              // start period of lec
+      r1 = tmp1[tmp1.length - 4];                 // room of lec
+      w1 = tmp1[tmp1.length - 1]; w2 = w1;        // week of lec
       if (has_lab[u]) 
       {
-        l2 = l[1];
         tmp2 = data[i + 3].split('	').join(' ').split(' ');
-        d2 = tmp2[1]; 
-        if (d2 == 'nhật') d2 = '8';
+        l2 = tmp[0].split("_")[1];                // class code of lab
+        d2 = (tmp2[1] == 'nhật') ? '8' : tmp2[1]; // weekday of lec
         while (tmp2[j2] == '-') j2++;
-        p2 = tmp2[j2];
-        r2 = tmp2[tmp2.length - 4];
-        w2 = tmp2[tmp2.length - 1];
-        if (w1 < w2) 
-        { 
-          [w1, w2] = [w2, w1]; 
-          [d1, d2] = [d2, d1]; 
-          [p1, p2] = [p2, p1]; 
-          [r1, r2] = [r2, r1]; 
-          [tmp1, tmp2] = [tmp2, tmp1]; 
+        p2 = tmp2[j2];                            // start period of lab
+        r2 = tmp2[tmp2.length - 4];               // room of lec
+        w2 = tmp2[tmp2.length - 1];               // week of lec
+        if (w1 < w2) // swap lec and lab if need
+        {
+          [tmp1, tmp2] = [tmp2, tmp1];
+          [d1, d2] = [d2, d1];
+          [p1, p2] = [p2, p1];
+          [r1, r2] = [r2, r1];
+          [w1, w2] = [w2, w1];
           [j1, j2] = [j2, j1];
         }
       }
+
+      // fix info
       if (r1 == 'HANGOUT_TUONGTAC') r1 = 'GGMEET';
       if (r2 == 'HANGOUT_TUONGTAC') r2 = 'GGMEET';
       while (l1.length < 4) l1 = ' ' + l1;
       while (has_lab[u] && l2.length < 4) l2 = l2 + ' ';
-      if (!class_code[0][u][+p1][+d1].includes(l1)) 
+
+      // store class code and info to arrays
+      if (!class_code[0][u][+p1][+d1].includes(l1)) // Lec
       {
         class_code[0][u][+p1][+d1].push(l1);
         class_info[0][u][+p1][+d1].push(l1 + " " + r1 + " " + w1);
       }
-      if (has_lab[u] && !class_code[1][u][+p2][+d2].includes(l1 + l2)) 
+      if (has_lab[u] && !class_code[1][u][+p2][+d2].includes(l1 + l2)) // Lab
       {
         class_code[1][u][+p2][+d2].push(l1 + "-" + l2);
         class_info[1][u][+p2][+d2].push(l1 + " " + r1 + " " + w1 + "\n" + l2 + " " + r2 + " " + w2);
       }
-      if (tmp[0] == sche_class)
+      if (tmp[0] == sche_class) // sche
       {
-        var s = l1 + " " + r1 + " " + w1;
-        if (has_lab[u]) s += "\n" + l2 + " " + r2 + " " + w2;
-        class_code[2][0][+p1][+d1].push(data[it - 1].slice(0, 6) + "(Lec)");
-        class_info[2][0][+p1][+d1].push(s);
+        var s = l1 + " " + r1 + " " + w1; // lec info
+        if (has_lab[u]) s += "\n" + l2 + " " + r2 + " " + w2; // lab info if has
+        class_code[0][0][+p1][+d1].push(data[it - 1].slice(0, 6) + "(Lec)");
+        class_info[0][0][+p1][+d1].push(s);
         if (has_lab[u])
         {
-          class_code[2][0][+p2][+d2].push(data[it - 1].slice(0, 6) + "(Lab)");
-          class_info[2][0][+p2][+d2].push(s);
+          class_code[0][0][+p2][+d2].push(data[it - 1].slice(0, 6) + "(Lab)");
+          class_info[0][0][+p2][+d2].push(s);
         }
       }
     }
   }
 }
 
-function create_table(q) {
-  let id = q ? q - 1 : 0;
-  document.querySelectorAll('.cuc').forEach(e => e.remove());
+// ======================================= Create Tables ======================================= //
+var weekdays = ['x', 'x', 'Mon', 'Tue', 'Wed', 'Thu ', 'Fri', 'Sat', 'Sun'];
+
+function create_table(id) 
+{
+  // remove all existing tables
+  document.querySelectorAll('.tbl_field').forEach(e => e.remove());
+
+  // create a new div for tables
   var newdiv = document.createElement("div");
-  newdiv.className = "cuc";
+  newdiv.className = "tbl_field";
   sche.appendChild(newdiv);
-  let ks = 0, ke = has_lab[id];
-  if (!q) ks = ke = 2;
-  for (k = ks; k <= ke; k++) 
+
+  // create corresponding table
+  for (k = 0; k <= has_lab[id]; k++) 
   {
-    var tbl = document.createElement('table');
-    tbl.className = 'mon';
+    let tbl = document.createElement('table');
+    tbl.className = 'data_tbl';
     for (let i = 0; i <= 17; i++) // rows
     {
       const tr = tbl.insertRow();
@@ -176,10 +182,12 @@ function create_table(q) {
       {
         const td = tr.insertCell();
         var celltext, celltextpop, tmp = '';
-        if (!i && !(j - 1)) if (!k) tmp = 'Lec'; else if (k == 1) tmp = 'Lab'; else tmp = 'Sche'
-        if (!i && j - 1) tmp = weekdays[j];
-        if (i && !(j - 1)) tmp = i;
-        if (i && j - 1) for (let z = 0; z < class_code[k][id][i][j].length; z++) tmp += class_code[k][id][i][j][z] + "\n";
+        if (!i && !(j - 1)) if (!id) tmp = 'Sche'; else if (!k) tmp = 'Lec'; else tmp = 'Lab';
+        if (!i &&   j - 1)  tmp = weekdays[j];
+        if ( i && !(j - 1)) tmp = i;
+        if ( i &&   j - 1)  
+          for (let z = 0; z < class_code[k][id][i][j].length; z++) 
+            tmp += class_code[k][id][i][j][z] + "\n";
         celltext = document.createTextNode(tmp);
         td.style = "white-space: pre-line;"
         td.appendChild(celltext);
@@ -187,10 +195,7 @@ function create_table(q) {
         td.className = "haspopup";
         tmp = '';
         for (let z = 0; z < class_info[k][id][i][j].length; z++) 
-        {
-          if (z) tmp += "\n";
           tmp += class_info[k][id][i][j][z] + "\n";
-        }
         var x = document.createElement("span");
         celltextpop = document.createTextNode(tmp);
         x.className = "popup";
@@ -230,7 +235,7 @@ submit.onclick = function ()
     for (let k = 0; k <= full_data.length; k++) // data.length = number of courses
     {
       class_code[z][k] = []; class_info[z][k] = [];
-      has_lab.push(1);
+      has_lab.push(0);
       for (let i = 0; i < 20; i++) // periods
       {
         class_code[z][k][i] = []; class_info[z][k][i] = [];
@@ -268,7 +273,7 @@ submit.onclick = function ()
   }
   list.forEach((item) => item.addEventListener('click', activeLink));
 
-  // add a little note: ICT = BKPT + 5
+  // add a little note: ICT = BKPT + 5.
   newdiv.id = "note";
   sche.appendChild(newdiv);
   newdiv.appendChild(document.createTextNode("*ICT = BKPT +5."));
